@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+
+    <html lang="en">
+
+    <head>
+
+        <meta charset="UTF-8">
+
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+        <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@700&display=swap" rel="stylesheet">
+
+        <title>Document</title>
+
+    </head>
+
+    <style>
+
+        .active{
+
+            background-color: green;
+
+        }
+
+    </style>
+
+<body>
+
+    <div id="app-2">
+
+        <span v-bind:title="message">
+
+            Hover your mouse over me for a few seconds
+            to see my dynamically bound title!
+            
+        </span>
+
+        <!-- Data tidak bisa diubah lewat console -->
+
+            <h2 v-once>{{name}}</h2>
+        
+        <!-- Javascript Exppression jadi vue js bisa langsung coding dengan syntax2 JS -->
+
+            <h2 v-once>{{name + 'Okay'}}</h2>
+
+            <h2 v-once>{{name.toUpperCase()}}</h2>
+            
+            <h2 v-once>{{1+2}}</h2>
+
+        <!-- Operasi Logika Langsung | Contoh dengan operator Logika atau perbandingan -->
+                    
+        <h2 v-once>{{isActive ? 'Succes' : 'Danger'}}</h2>
+
+        <!-- Memanggil getName Function -->
+
+        <h2>{{ getname() }}</h2>
+
+        <!-- Memanggil Function Totalbayar -->
+
+        <p>{{ totalBayar }}</p>
+        
+        <!-- Memanggil Function Nama Lengkap -->
+
+        <p>{{ namaLengkap }}</p>
+        
+        <!-- Latihan Computer Property untuk menentukan bilangan ganjil/genap -->
+
+        <p> <span>{{ bilangan }}</span> | bilangan ini ganjil/genap : {{ infoBilanganGanjilGenap }}</p>
+
+        <!-- Konsep Directive VUE JS -->
+
+        <h1 v-text="name"></h1>
+
+        <h1 v-text="name.toUpperCase()"></h1>
+
+        <h1 v-text="bilangan*10"></h1>
+
+        <h1 v-html="link"></h1>
+
+        <h1 v-text="link"></h1>
+
+        <!-- Atribute Binding -->
+
+        <img v-bind:src="image">
+
+        <!-- Events -->
+
+        <h1 v-text="bilangan"></h1>
+
+        <p>bilangan ini adalah ganjil/genap : {{infoBilanganGanjilGenap}}</p>
+
+        <button v-on:click="handleclick">Tekan Slurr</button>
+
+        <br>
+
+        <!-- Latihan Class Binding -->
+
+        <h3>Latihan Class Binding</h3>
+
+        <button v-bind:class="{ active:menu === 'home' }" v-on:click=" menu = 'home' ">Home</button>
+
+        <button v-bind:class="{ active:menu === 'about' }" v-on:click=" menu = 'about' ">About</button>
+
+        <button v-bind:class="{ active:menu === 'blog' }" v-on:click=" menu = 'blog' ">Blog</button>
+
+        <!-- Two Way Data Binding -->
+
+        <input type="text" v-model="name">
+
+        <h1 v-text="'contoh' + name"></h1>
+
+        <p>{{ kelas }}</p>
+
+        <div>
+            <label for="">react</label><input type="checkbox" value="react" v-model="kelas">
+            <label for="">vue</label><input type="checkbox" value="vue" v-model="kelas">
+            <label for="">angular</label><input type="checkbox" value="angular" v-model="kelas">
+        </div>
+
+        <!-- Directive Perulangan -->
+
+        <ul>
+            <li v-for="(item, index) of kelas">{{index+1 }} - {{item}}</li>
+        </ul>
+
+        <h3>Perulangan 1 sampai 5</h3>
+
+        <ul>
+            <li v-for="x in 5">{{ x }}</li>
+        </ul>
+        
+        <h3>Perulangan 1 sampai 5 mencari bilangan genap</h3>
+
+        <ul>
+            <li v-for="y in cariBilanganGenap(numbers)">{{ y }}</li>
+        </ul>
+
+        <!-- Conditional Rendering -->
+
+        <ul v-if="kelas.length >= 1">
+
+            <li v-for="(item, index) of kelas">{{index+1 }} - {{item}}</li>
+
+        </ul>
+        
+        <p v-else> kelas belum tersedia</p>
+
+        <!-- Latihan V Show -->
+
+        <h2>V Show Latihan</h2>
+
+        <ul v-show="kelas.length >= 1">
+
+            <li v-for="(item, index) of kelas">{{index+1 }} - {{item}}</li>
+
+        </ul>
+        
+        <!-- Latihan Element Template Vue JS -->
+
+        <h2>Ellemen Template</h2>
+
+        <template v-if="kelas.length >= 1">
+
+            <ul>
+
+                <li v-for="(item, index) of kelas">{{index+1 }} - {{item}}</li>
+
+            </ul>
+
+        </template>
+
+        <!-- List Rendering Object Latihan -->
+
+        <h2>List Rendering Object</h2>
+
+        <ul id="example-1">
+
+            <li v-for="itema in arrayBiasa" :key="itema.message">
+
+                {{ itema.message }}
+
+            </li>
+
+        </ul>
+
+        <!-- Latihan Object Event -->
+
+        <h3>Latihan Class Binding</h3>
+
+        <a href="#" v-bind:class="{ active:menu === 'home' }" v-on:click.prevent="gantiMenu('home')">Home</a>
+
+        <a href="#" v-bind:class="{ active:menu === 'about' }" v-on:click.prevent="gantiMenu('about')">About</a>
+
+        <a href="#" v-bind:class="{ active:menu === 'blog' }" v-on:click.prevent="gantiMenu('blog')">Blog</a>
+
+        <!-- Key Modifier -->
+
+        <h3>Form Key Modifier</h3>
+
+        <input type="text" placeholder="masukan nama kelas" v-on:keyup.enter="submitEnter">
+
+        <!-- Two Way Data Binding -->
+
+        <input v-model="kelasBaru" placeholder="edit me" v-on:keyup.enter="submitEnter">
+
+        <p>Message is: {{kelasBaru}}</p>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.4"></script>
+
+    <script>
+
+        // Cara simpel untuk codinga si datanya bro | jadi taro aja di variabel
+
+        var data = {
+
+            name: "Application",
+
+            message: 'You loaded this page on ' + new Date().toLocaleString(),
+
+            isActive : true,
+
+            qty : 1,
+
+            namaDepan : "Adriansyah",
+
+            namaBelakang : "Ravindra",
+
+            bilangan : 3,
+
+            link : "<a href=''>Latihan VUE JS</a>",
+
+            image : "images/vuejs.png",
+
+            menu: 'home',
+
+            kelas: [],
+
+            kelasBaru: 'HTML',
+
+            numbers: [1,2,3,4,5],
+
+            arrayBiasa: [
+
+                { message: 'Foo' },
+
+                { message: 'Bar' }
+
+            ]
+
+        }
+
+        var vm = new Vue({
+            
+            el: '#app-2',
+
+            data: data,
+
+            methods: {
+
+                getname: function(){
+
+                    return 'Hello ' +this.name
+
+                },
+
+                ubahNama: function(namaBaru) {
+                    
+                    this.name = namaBaru
+
+                    return this.getname()
+
+                },
+
+                handleclick: function(){
+
+                    this.bilangan++
+
+                },
+
+                cariBilanganGenap: function(numbers){
+
+                    return numbers.filter(angka =>{
+
+                        return angka % 2 === 0
+
+                    })
+
+                },
+
+                gantiMenu: function(tujuan){
+
+                    this.menu = tujuan
+
+                },
+
+                submitEnter: function(event){
+
+                    // Event Object
+
+                    // let text = event.target.value
+
+                    // this.kelas.push(text)
+
+                    // event.target.value = ""
+
+                    // Two Way Data Binding
+
+                    let text = event.target.value
+
+                    this.kelas.unshift(this.kelasBaru)
+
+                    this.kelasBaru = ""
+
+                }
+
+            },
+
+            computed: {
+
+                totalBayar: function() {
+                    
+                    return this.qty * 10000
+
+                },
+                
+                namaLengkap: function() {
+                    
+                    return this.namaDepan + this.namaBelakang
+
+                },
+
+                infoBilanganGanjilGenap: function() {
+                    
+                    return this.bilangan%2 === 0 ? 'Genap' : 'Ganjil'
+
+                }
+
+            }
+
+        })
+
+    </script>
+
+</body>
+
+</html>

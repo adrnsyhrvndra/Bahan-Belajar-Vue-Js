@@ -1,0 +1,4 @@
+
+run cmd
+
+php -S localhost:3000

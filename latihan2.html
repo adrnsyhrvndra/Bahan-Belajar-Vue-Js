@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@700&display=swap" rel="stylesheet">
+
+    <title>Document</title>
+
+</head>
+
+<style>
+
+    .active{
+
+        background-color: green;
+
+    }
+
+</style>
+
+<body>
+
+    <div id="app-2">
+
+        <header-component nama="Vuejs" image="images/vuejs.png"></header-component>
+
+        <nav>
+
+            <router-link to="/">Home</router-link>
+
+            <router-link to="/about">About</router-link>
+
+            <router-link to="/kelas">Kelas</router-link>
+
+        </nav>
+
+        </main>
+        
+            <!-- <kelas v-bind:items="kelas" v-on:submitkelas="submitkelas" v-on:hapuskelas="hapuskelas($event)"></kelas>
+
+            <home></home> -->
+
+            <router-view v-bind:items="kelas" v-on:submitkelas="submitkelas" v-on:hapuskelas="hapuskelas($event)"></router-view>
+        
+        </main>
+
+        <footer-component>
+
+            <p>Copyright 2020</p>
+
+        </footer-component>
+
+    </div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.7.4"></script>
+
+<script src="https://unpkg.com/vue-router@2.0.0/dist/vue-router.js"></script>
+
+<script>
+
+    const Home = {
+
+        template: `<div> Home </div>`
+
+    }
+    
+    const About = {
+
+        template: `<div> About </div>`
+
+    }
+    
+    const Kelas = {
+
+        props:['items'],
+
+        template: `
+        
+        <div>
+
+        <h3>Tambah Kelas</h3>
+
+        <p><input type="text" placeholder="masukan nama kelas" v-on:keyup.enter="$emit('submitkelas', $event)"></p>
+
+        <hr>
+
+        <h2>Daftar Kelas ({{items.length}})</h2>
+
+        <template v-if="items.length >= 1">
+
+            <ul>
+
+                <li v-for="(item, index) of items">
+                    
+                {{ index+1 }} - {{ item.judul }}
+                    
+                <a href="" v-on:click.prevent="$emit('hapuskelas', item.id)"> Hapus </a>
+                    
+                </li>
+
+            </ul>
+
+        </template>
+        
+        </div>`,
+
+        data: function () {
+            
+            return {}
+        
+        },
+
+        methods: {}
+
+    }
+
+    Vue.component('header-component', {
+
+        props:[
+
+            'nama',
+
+            'image'
+
+        ],
+
+        template: `<header>
+
+        <img v-bind:src="image" width="100">
+
+        <h1>{{pesan}}</h1>
+
+        <h1 v-text="pesan"></h1>
+
+        <p> {{ 'Hello,' + nama }} </p>
+
+        </header>`,
+
+        data: function () {
+            
+            return {
+
+                pesan: 'Hello Component'
+
+            }
+
+        }
+
+    })
+    
+    Vue.component('footer-component', {
+
+        template: `<footer>
+
+        <slot></slot>
+
+        </footer>`
+
+    })
+    
+    Vue.component('kelas', {})
+
+    const routes = [
+
+        { path: '/', component: Home },
+        { path: '/about', component: About },
+        { path: '/kelas', component: Kelas }
+
+    ]
+
+    const router = new VueRouter({
+
+        mode: 'history',
+
+        routes: routes
+
+    })
+
+    // Cara simpel untuk codinga si datanya bro | jadi taro aja di constiabel
+
+    const vm = new Vue({
+        
+        el: '#app-2',
+
+        router,
+
+        components:{
+
+            'home' : Home
+
+        },
+
+        data: {
+            
+            kelas: [
+
+                {
+
+                    id:'1',
+
+                    judul:'VUEJS',
+
+                    deskripsi:'JS FRAMEWORK',
+
+                    gambar:'vuejs.png'
+
+                },
+
+            ]
+            
+        },
+
+        methods:{
+
+            hapuskelas: function(id){
+
+                this.kelas = this.kelas.filter(item.id != id)
+
+            },
+
+            submitkelas: function(event){
+
+                const text = event.target.value
+
+                this.kelas.unshift(text)
+
+            }
+
+        },
+
+        computed: {}
+
+    })
+
+</script>
+
+</body>
+
+</html>
